@@ -1,3 +1,4 @@
-# stats-central
+# Stats Central
 
-Cool app for storing stats
+1. npm install
+2. sails lift

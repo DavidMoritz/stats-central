@@ -1,0 +1,9 @@
+#manage(ui-view="")
+	.item-make(ng-repeat="(key, value) in items")
+		h3 Item: {{key}}
+		p.caps(ng-repeat="(k, v) in value") #[span.badge {{v.length}}] Condition: {{k}}
+			span(ng-if="itemGroup[key][k].checkedOut > 0")
+				|  | #[a(ui-sref="school.rented({condition:k, item:itemGroup[key][k].id})")  Rented Out: #[span.badge {{itemGroup[key][k].checkedOut}}]]
+				|  | Available: #[span.badge {{itemGroup[key][k].available}}]
+	.row.button-collection
+		a.ui-btn.ui-shadow.stats-central-btn(ui-sref="school.add.item") Click to add inventory

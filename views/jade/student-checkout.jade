@@ -1,0 +1,6 @@
+.row
+	.item-info(ui-view="info")
+	ul.checkout-items
+		li(ng-repeat="item in item_types" ng-click="itemClicked(item)")
+			a.ui-btn.ui-shadow.stats-central-btn(ng-class="item.checked ? 'ui-icon-check ui-alt-icon ui-nodisc-icon ui-btn-icon-left' : ''") {{item.item_type.name}}
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-star.ui-btn-icon-right(ng-click="parentScope.currentPlayer = false" ui-sref="check.out") Done

@@ -1,0 +1,5 @@
+#login
+	.row.button-collection
+		a.ui-btn.ui-shadow.stats-central-btn(ui-sref="login.form" ng-hide="$state.current.name == 'login.form'") Sign In
+		a.ui-btn.ui-shadow.stats-central-btn(ui-sref="login.signup" ng-hide="$state.current.name == 'login.signup'")	Sign Up
+		div(ui-view="")

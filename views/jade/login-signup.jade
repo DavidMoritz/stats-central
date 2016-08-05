@@ -1,0 +1,38 @@
+form#login-signup(ng-submit="submitSignupForm()" name="signup")
+	h2 Create an account
+	.control-group.form-group.col-md-12(ng-class="{'has-error':signup.name.$invalid && signup.name.$dirty}")
+		label Your full name
+		input.form-control(type="text" name="name" ng-model="signupForm.name" ng-maxlength="50" required)
+		span.help-block.has-error(ng-if="signup.name.$dirty")
+			span(ng-show="signup.name.$error.required") Name is required.
+			span(ng-show="signup.name.$error.maxlength") The name cannot be more than 50 characters.
+	.control-group.form-group.col-md-12(ng-class="{'has-error':signup.title.$invalid &&	signup.title.$dirty}")
+		label Your title
+		input.form-control(type="text" name="title" ng-model="signupForm.title" ng-maxlength="50" required)
+		span.help-block.has-error(ng-if="signup.title.$dirty")
+			span(ng-show="signup.title.$error.required") Title is required.
+			span(ng-show="signup.title.$error.maxlength") The name cannot be more than 50 characters.
+	.control-group.form-group.col-md-12(ng-class="{'has-error':signup.email.$invalid &&	signup.email.$dirty}")
+		label Your email address
+		input.form-control(type="email" name="email" ng-model="signupForm.email" required )
+		span.help-block.has-error(ng-if="signup.email.$dirty")
+			span(ng-show="signup.email.$error.required") Email address is required.
+			span(ng-show="signup.email.$error.email") Not a valid email address.
+	.control-group.form-group.col-md-6(ng-class="{'has-error':signup.password.$invalid && signup.password.$dirty}")
+		label Choose a password
+		input#password.form-control(type="password" placeholder="at least 6 characters" name="password" ng-model="signupForm.password" required ng-minlength="6" compare-to="signupForm.confirmPassword" )
+		span.help-block.has-error(ng-if="signup.password.$dirty")
+			span(ng-show="signup.password.$error.required") Password is required.
+			span(ng-show="signup.password.$error.minlength") Password must be at least 6 characters.
+	.control-group.form-group.col-md-6
+		label Re-enter your password
+		input.form-control(type="password" placeholder="one more time" name="confirmation" ng-model="signupForm.confirmPassword" required)
+		span.help-block.has-error(ng-if="signup.confirmation.$dirty")
+			span(ng-show="signup.password.$error.compareTo") Password must match.
+			span(ng-show="signup.confirmation.$error.required") Confirmation password is required.
+	br
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="submit")
+		span(ng-show="!signupForm.loading") Create Account
+		span.overlord-loading-spinner.fa.fa-spinner(ng-show="signupForm.loading")
+		span(ng-show="signupForm.loading") Preparing your new account...
+	input(type="hidden" name="_csrf" value="#{_csrf}")

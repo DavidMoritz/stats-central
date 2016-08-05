@@ -1,0 +1,57 @@
+form#create-items.row(ng-submit="submitNewForm()" name="createItems")
+	h2 Add inventory for {{parentScope.currentSchool.name || parentScope.Users[0].currentSchool.name}}
+	.input-group.col-md-12(ng-if="currentItem == false")
+		label Scan#[span(ng-show="showMake || customMake") ned] Barcode (at least 12 digits)
+		input#sku.form-control(type="tel" name="sku" ng-model="newFormFields.sku" ng-change="scan()" placeholder="If possible")
+	p(ng-show="noResults") No results found. Please continue filling out information
+	.input-group.col-md-12(ng-if="currentItem == false || hideType != true")
+		label(for="item-type") Item Type
+		.input-group
+			span#basic-addon1.input-group-addon
+				i.fa.fa-search.bigger.text-muted
+			input#item-type.form-control(type="text" ng-blur="blurType()" ng-model="newFormFields.item_type" name="item_type" ng-required="true" typeahead="item as item.name for item in item_types | filter:$viewValue | limitTo:8" typeahead-editable=true typeahead-on-select="selectitemtype($item, $model, $label)" data-item-id='{{item.id}}' placeholder="Generic (jersey)..." aria-describedby="basic-addon1")
+		span.help-block.has-error(ng-if="newFormFields.item_type.$dirty")
+			span(ng-show="newFormFields.item_type.$error.required") Item type is required.
+	.input-group.col-md-12(ng-if="showMake")
+		label(for="item-make") Description
+		.input-group
+			span#basic-addon2.input-group-addon
+				i.fa.fa-search.bigger.text-muted
+			input#item-make.form-control(type="text" ng-model="newFormFields.item_make" name="item_make" ng-required="true" typeahead="item as item.description for item in item_makess | filter:$viewValue | limitTo:8" typeahead-editable=false typeahead-on-select="selectitemmake($item, $model, $label)" data-item-id='{{item.id}}' placeholder="Specific (Nike)..." aria-describedby="basic-addon2")
+		span.help-block.has-error(ng-if="newFormFields.item_make.$dirty")
+			span(ng-show="newFormFields.item_make.$error.required") Item make is required.
+	//.input-group.col-md-12(ng-if="customMake")
+		label(for="manufacturer") Manufacturer
+		.input-group
+			span#basic-addon3.input-group-addon
+				i.fa.fa-search.bigger.text-muted
+			input#manufacturer.form-control(type="text" ng-model="newFormFields.manufacturer" name="manufacturer" ng-required="true" typeahead="item as item.name for item in manufacturers | filter:$viewValue | limitTo:8" typeahead-editable=true typeahead-on-select="selectmanufacturer($item, $model, $label)" data-item-id='{{item.id}}' placeholder="Search manufacturers..." aria-describedby="basic-addon3")
+		span.help-block.has-error(ng-if="newFormFields.manufacturer.$dirty")
+			span(ng-show="newFormFields.manufacturer.$error.required") Manufacturer is required.	
+	.input-group.col-md-12(ng-if="showDescription == true")
+		label Product Name and Description
+		input.form-control(type="text" name="description" ng-model="newFormFields.description" ng-maxlength="50" placeholder="Brief and specific (other schools may use this description as well)" ng-required="true")
+		span.help-block.has-error(ng-if="newFormFields.description.$dirty")
+			span(ng-show="newFormFields.description.$error.required") Description is required.
+			span(ng-show="newFormFields.description.$error.maxlength") The description cannot be more than 50 characters.
+	.description(ng-if="currentItem")
+		h4(ng-if="currentItem.item_type") Item: {{currentItem.item_type.name}}
+		//h4 Manufacturer: {{currentItem.manufacturer.name}}
+		h4(ng-if="currentItem.description") Description: {{currentItem.description}}
+	.input-group.col-md-12
+		label.block Condition
+		div.col-xs-4(ng-repeat="cond in conditions")
+			label.radio-inline
+				input(type="checkbox" name="condition{{cond.field}}" value="new" ng-model="newFormFields['condition' + cond.field]")
+				| &nbsp;{{cond.label}}
+			.input-group.col-md-12(ng-if="newFormFields['condition' + cond.field]")
+				label How Many?
+				input.form-control(type="number" name="quantity{{cond.field}}" ng-model="newFormFields['quantity' + cond.field]" placeholder="1")
+				span.help-block.has-error(ng-if="newFormFields['quantity' + cond.field].$dirty")
+					span(ng-show="newFormFields['quantity' + cond.field].$error.required") Quantity for {{cond.text}} is required.
+	br
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="submit")
+		span(ng-show="!newForm.loading") Add Item#[span(ng-show="(newFormFields.quantityNew + newFormFields.quantityGood + newFormFields.quantityRepair) > 1") s]
+		span.overlord-loading-spinner.fa.fa-spinner(ng-show="newForm.loading")
+		span(ng-show="newForm.loading") Adding Item#[span(ng-show="(newFormFields.quantityNew + newFormFields.quantityGood + newFormFields.quantityRepair) > 1") s]...
+	input(type="hidden" name="_csrf" value="#{_csrf}")

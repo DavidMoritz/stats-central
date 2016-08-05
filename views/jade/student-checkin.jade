@@ -1,0 +1,20 @@
+div(ui-view="")
+	h3 Player: {{player.name}}
+	h4 Graduating Year: {{player.year}}
+	hr
+	h3 Items Checking In:
+	ul.checkout-items
+		li(ng-repeat="rental in rentals")
+			h5.caps Type: {{rental.item_make.item_type.name}}
+			h5.caps Make: {{rental.item_make.description}}
+			h5 Rented On: {{rental.date_rented | date:"MM/dd/yyyy"}}
+			p.caps Starting Condition: {{rental.item.condition}}
+			.input-group.col-md-12
+				label.block Return Condition:
+				div.col-xs-4(ng-repeat="cond in conditions")
+					label.radio-inline(ng-click="checkin(rental.id, cond.field)")
+						input(type="checkbox" name="condition{{cond.field}}" value="new")
+						| &nbsp;{{cond.label}}
+			hr(ng-if="$last == false")
+	.row
+		button.ui-btn.ui-shadow.stats-central-btn.ui-icon-star.ui-btn-icon-right(ng-click="parentScope.currentPlayer = false" ui-sref="check.out") Done

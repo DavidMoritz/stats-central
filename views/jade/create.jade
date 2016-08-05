@@ -1,0 +1,14 @@
+form#create-form.row(ng-submit="submitNewForm()" name="{{topics.name}}")
+	h2 {{topics.title}}
+	.control-group.form-group.col-md-12(ng-repeat="field in formAttributes" ng-class="field.class")
+		label {{field.label}}
+		input.form-control(type="{{field.type}}" name="{{field.name}}" ng-model="newFormFields[field.name]" ng-required="field.required" ng-maxlength="field.maxlength" placeholder="{{field.placeholder}}")
+		span.help-block.has-error(ng-if="newFormFields[field.name].$dirty")
+			span(ng-show="newFormFields[field.name].$error.required") {{field.label}} is required.
+			span(ng-show="newFormFields[field.name].$error.maxlength") The name cannot be more than {{field.maxlength}} characters.
+	br
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="submit")
+		span(ng-show="!newForm.loading") {{topics.submit}}
+		span.overlord-loading-spinner.fa.fa-spinner(ng-show="newForm.loading")
+		span(ng-show="newForm.loading") {{topics.loadtext}}
+	input(type="hidden" name="_csrf" value="#{_csrf}")

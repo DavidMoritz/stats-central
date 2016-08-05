@@ -1,0 +1,7 @@
+#manage(ui-view="")
+	.row.list-items
+		ul
+			li.inventory-item.col-xs-4.col-sm-3.col-lg-2(ng-repeat="item in uniqueItems")
+				a(ui-sref="school.manage.items.item_type({id:item.id})") #[span.badge {{item.value}}] {{item.key}}
+	.row.button-collection
+		a.ui-btn.ui-shadow.stats-central-btn(ui-sref="school.add.item") Click to add inventory

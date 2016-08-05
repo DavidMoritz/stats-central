@@ -1,0 +1,5 @@
+#select
+	div.toLeft(ui-view="")
+		.row.button-collection
+			a.ui-btn.ui-shadow.stats-central-btn(ng-repeat="item in items" ng-click="currentitem(item.id)") {{item.name}}
+			a.ui-btn.ui-shadow.stats-central-btn(ui-sref="{{topics.addLink}}" ng-hide="topics.hideAdd" ng-bind-html="topics.add")

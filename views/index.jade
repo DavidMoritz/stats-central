@@ -1,0 +1,106 @@
+doctype html
+html
+	head
+		title(ng-bind="$state.current.name + ' - ui-router'") Stats Central App
+		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+
+		// STYLES
+		link(rel="stylesheet", href="/styles/angular-toastr.css")
+		link(rel="stylesheet", href="/styles/font-awesome.css")
+		link(rel="stylesheet", href="/styles/jquery.mobile.min.css")
+		link(rel="stylesheet", href="/styles/zimporter.css")
+		// STYLES END
+
+		// Added this so the client has access to the csrf tag and it's grabbed first service side on every page
+		script(type="text/javascript") window.SAILS_LOCALS = { _csrf: " #{_csrf} " }; window.UserId = "#{_userId}";
+
+	body.stats-central-body.container-fluid.ui-page-theme-a(ng-app='AppModule' ng-controller='IndexController' ng-cloak)
+		nav.row.navbar-green.ui-header
+			span#menu-btn.pull-right(dropdown="" on-toggle="toggled(open)" ng-if="Users[0].id")
+				i.fa.fa-bars.menu-btn(dropdown-toggle="")
+				ul.menu.dropdown-menu(aria-labelledby="simple-dropdown" ng-repeat="user in Users")
+					li(ng-if="currentPlayer.id || user.currentPlayer.id")
+						label Player: {{currentPlayer.name || user.currentPlayer.name}}
+						a(ui-sref="check") Change Players
+						a(ui-sref="player.checkin") Check In
+						a(ui-sref="player.checkout") Check Out
+					li(ng-if="currentSport.id || user.currentSport.id")
+						label Sport: {{currentSport.name || user.currentSport.name}}
+						a(ui-sref="check" ng-if="!(currentPlayer.id || user.currentPlayer.id)") Check In/Out
+						a(ui-sref="sport.manage") Manage Items
+						a(ui-sref="sport") Change Sports
+					li(ng-if="currentSchool.id || user.currentSchool.id")
+						label School: {{currentSchool.name || user.currentSchool.name}}
+						a(ui-sref="school.manage.items") Manage Inventory
+						//a(ui-sref="school") Manage Players
+						a(ui-sref="school") Change Schools
+					li 
+						label User: {{user.name}}
+						a(href="/logout") Logout
+			a(ui-sref="home")
+				img.stats-central-logo(src="images/stats-central-logos-smallest.png")
+			span.ui-title
+				span.page-title(ui-view="title") Stats Central
+		div.slide(ui-view="")
+			p.lead Welcome to the Stats Central Demo
+			p The database is not populated with many values, so you'll need to add your own. Pay attention to the responsiveness of the dynamic information below and the dynamic header.
+			p Start with signing up #[a(ui-sref="login") here to login]. If you want, you can try to go straight to the #[a(ui-sref="school") School Screen], but it will kick you back if you aren't logged in.
+			p Enjoy!
+		nav.row.navbar-green.ui-footer.go-back
+			span.ui-title.tight &copy; David Moritz
+		div(ng-repeat="user in Users")
+			pre.
+				Username: {{user.name}}
+				School: {{currentSchool.name || user.currentSchool.name}}
+				Sport: {{currentSport.name || user.currentSport.name}}
+				Player: {{currentPlayer.name}}
+				<!-- Here's some values to keep an eye on in the sample in order to understand $state and $stateParams -->
+				$state = {{$state.current.name}}
+				$stateParams = {{$stateParams}}
+				$state full url = {{ $state.$current.url.source }}
+				<!-- $state.$current is not a public api, we are using it to display the full url for learning purposes-->
+		p.navbar-text(ui-view="hint")
+
+		// SCRIPTS
+		script(src="/js/dependencies/sails.io.js")
+		script(src="/js/dependencies/jquery-2.1.4.js")
+		script(src="/js/dependencies/angular.1.3.js")
+		script(src="/js/dependencies/angular-animate.js")
+		script(src="/js/dependencies/angular-group-by.js")
+		script(src="/js/dependencies/angular-sails-bind.js")
+		script(src="/js/dependencies/angular-toastr.js")
+		script(src="/js/dependencies/angular-ui-router.js")
+		script(src="/js/dependencies/compareTo.module.js")
+		script(src="/js/dependencies/lodash-3.10.1.js")
+		script(src="/js/dependencies/ui-bootstrap-tpls-0.13.2.min.js")
+		script(src="/js/private/modules/DashboardModule.js")
+		script(src="/js/public/modules/AppModule.js")
+		script(src="/js/private/controllers/DashboardController.js")
+		script(src="/js/public/controllers/AwesomeController.js")
+		script(src="/js/public/controllers/CheckController.js")
+		script(src="/js/public/controllers/CreateController.js")
+		script(src="/js/public/controllers/HomepageController.js")
+		script(src="/js/public/controllers/IndexController.js")
+		script(src="/js/public/controllers/SignupController.js")
+		script(src="/js/public/controllers/TestController.js")
+		script(src="/js/public/controllers/player/PlayerCheckinController.js")
+		script(src="/js/public/controllers/player/PlayerCheckoutController.js")
+		script(src="/js/public/controllers/player/PlayerController.js")
+		script(src="/js/public/controllers/school/SchoolAddController.js")
+		script(src="/js/public/controllers/school/SchoolAddItemController.js")
+		script(src="/js/public/controllers/school/SchoolAddStudentController.js")
+		script(src="/js/public/controllers/school/SchoolController.js")
+		script(src="/js/public/controllers/school/SchoolCreateController.js")
+		script(src="/js/public/controllers/school/SchoolManageController.js")
+		script(src="/js/public/controllers/school/SchoolManageItemTypeController.js")
+		script(src="/js/public/controllers/school/SchoolManageItemsController.js")
+		script(src="/js/public/controllers/school/SchoolRentedItemsController.js")
+		script(src="/js/public/controllers/sport/SportAddController.js")
+		script(src="/js/public/controllers/sport/SportAddItemsController.js")
+		script(src="/js/public/controllers/sport/SportController.js")
+		script(src="/js/public/controllers/sport/SportCreateController.js")
+		script(src="/js/public/services/contacts-service.js")
+		script(src="/js/public/services/contacts.js")
+		script(src="/js/public/services/ui-router-login.js")
+		script(src="/js/public/services/utils-service.js")
+		// SCRIPTS END

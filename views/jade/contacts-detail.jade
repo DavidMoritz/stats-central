@@ -1,0 +1,7 @@
+div
+	h2 {{contact.name}}
+	ul
+		li(ng-repeat="item in contact.items")
+			a(ui-sref="contacts.detail.item({itemId:item.id})") {{item.type}}
+	div.slide(ui-view="")
+		small.muted Click on a contact item to view and/or edit it.

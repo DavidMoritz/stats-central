@@ -1,0 +1,8 @@
+#manage(ui-view="")
+	.item-make(ng-repeat="item in items")
+		h3 Item: {{item.item_make.description}}
+		h3 Player: {{item.player.name}}
+		h3 Rented On: {{item.rentals[0].date_rented | date:"MM/dd/yyyy"}}
+		hr(ng-if="$last == false")
+	.row.button-collection
+		a.ui-btn.ui-shadow.stats-central-btn(ui-sref="school.add.item") Click to add inventory

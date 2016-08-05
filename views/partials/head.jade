@@ -1,0 +1,29 @@
+doctype html
+html
+	head
+		title(ng-bind="$state.current.name + ' - ui-router'") Stats Central App
+
+		// Viewport mobile tag for sensible mobile support
+		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+
+
+		// STYLES
+		link(rel="stylesheet", href="/styles/angular-toastr.css")
+		link(rel="stylesheet", href="/styles/font-awesome.css")
+		link(rel="stylesheet", href="/styles/jquery.mobile.min.css")
+		link(rel="stylesheet", href="/styles/zimporter.css")
+		// STYLES END
+
+		// Added this so the client has access to the csrf tag and it's grabbed first service side on every page
+		script(type="text/javascript") window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+
+	body.stats-central-body.container-fluid.ui-page-theme-a(ng-app='AppModule' ng-controller='IndexController' ng-cloak)
+		// Creates the navbar
+		nav.row.navbar-green.ui-header
+			// This is the brand on the left-hand side.
+			a(href="/#")
+				img.stats-central-logo(src="images/stats-central-logos-smallest.png")
+			span.ui-title
+				span.page-title {{pageTitle}}
+				a.btn.btn-success.logout(href="/logout" class="" ng-show="loggedIn") Logout
+		.tab-content

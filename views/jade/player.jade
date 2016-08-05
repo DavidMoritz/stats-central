@@ -1,0 +1,6 @@
+#player
+	.row.button-collection
+		.input-group.mar-top
+			span#basic-addon1.input-group-addon
+				i.fa.fa-search.bigger.text-muted
+			input.form-control(type="text" ng-model="playerForm.player" typeahead="player as player.name for player in players | filter:$viewValue | limitTo:8" typeahead-editable=false typeahead-on-select="selectPlayer($item, $model, $label)" data-player-id='{{player.id}}' placeholder="Search player..." aria-describedby="basic-addon1")

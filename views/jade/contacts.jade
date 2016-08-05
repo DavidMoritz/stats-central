@@ -1,0 +1,13 @@
+div.row
+	div.col-xs-3
+		div.pa-sidebar.well.well-small
+			ul.nav.nav-list
+				li(ng-class="{ active: $state.includes('contacts.list') }")
+					a(ui-sref="contacts.list") All Contacts
+				li.nav-header Top Contacts
+				li(ng-repeat="contact in contacts | limitTo:2" ui-sref-active="active")
+					a(ui-sref="contacts.detail({contactId:contact.id})") {{contact.name}}
+			hr 
+			button.btn(ng-click="goToRandom()") Show random contact
+			div.slide(ui-view="menuTip")
+	div.col-xs-9.slide(ui-view="" style="padding-top: 80px;")

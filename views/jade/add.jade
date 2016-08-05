@@ -1,0 +1,14 @@
+#add(ui-view="")
+	form#add-form.row(ng-submit="createitem()" name="{{topics.name}}")
+		h2 {{topics.title}}
+		.input-group
+			span#basic-addon1.input-group-addon
+				i.fa.fa-search.bigger.text-muted
+			input.form-control(type="text" ng-model="topics.input" typeahead="item as item.name for item in items | filter:$viewValue | limitTo:8" typeahead-editable="{{topics.editable}}" typeahead-on-select="selectitem($item, $model, $label)" data-item-id='{{item.id}}' placeholder="{{topics.placeholder}}" aria-describedby="basic-addon1")
+		br
+		button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="submit" hidden)
+			span(ng-show="!signupForm.loading") Add item
+			span.overlord-loading-spinner.fa.fa-spinner(ng-show="signupForm.loading")
+			span(ng-show="signupForm.loading") Adding the new item...
+		input(type="hidden" name="_csrf" value="#{_csrf}")
+		button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(ui-sref="{{topics.createLink}}" ng-show="topics.create") {{topics.create}}

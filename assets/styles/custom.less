@@ -1,0 +1,227 @@
+@green: #3B7437;
+@shadow: #193F16;
+@gray: #dad7d7;
+
+.go-back {
+  z-index: -1;
+}
+.block {
+  display: block;
+}
+
+.checkout-items {
+  list-style: none;
+  padding: 0;
+  li {
+    a {
+      margin-bottom: 0;
+      text-align: left;
+    }
+    ~ li a {
+      margin: 0;
+    }
+  }
+}
+
+.list-items {
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  .inventory-item {
+    padding-right: 15px;
+    display: inline-block;
+    width: 33%;
+    text-transform: capitalize;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  margin-top: 3px;
+}
+.input-group ~ .input-group {
+  margin-top: 15px;
+}
+
+.shadow {
+  text-shadow: 0 2px 0 @shadow;
+}
+
+.navbar-green {
+  background: @green;
+  border: solid black 1px;
+  border-left: none;
+  border-right: none;
+  .shadow;
+  color: white;
+  .ui-title {
+    font-weight: bold;
+    font-size: 16px;
+    &.tight {
+      margin: 0 1em;
+    }
+  }
+  .menu-btn {
+    font-size: 25px;
+    padding: 9px 15px;
+    cursor: pointer;
+  }
+  .menu {
+    margin-top: 1px;
+    font-size: 16px;
+    right: -1px;
+    text-align: right;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 15px;
+    li ~ li {
+      margin-top: 10px;
+    }
+    a,
+    a:hover,
+    a:focus {
+      display: block;
+      background-color: transparent;
+      color: white;
+      font-weight: normal;
+      padding-right: 0;
+    }
+    label {
+      margin-bottom: 0;
+      display: block;
+      font-weight: bold;
+      text-align: left;
+      color: #ccc;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
+
+.stats-central-body.stats-central-body {
+  background: @gray;
+  .ui-page-theme-a {
+    background: none;
+    a {
+      color: inherit;
+    }
+  }
+  .stats-central-btn {
+    border-color: black;
+    text-transform: capitalize;
+    &:hover {
+      background: @green;
+      color: white;
+      .shadow;
+    }
+  }
+  .form-control {
+    color: black;
+  }
+  .logout {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+  .input-group {
+    .input-group-addon {
+      border-color: black;
+      border-radius: 0;
+    }
+    .form-control {
+      border-color: black;
+    }
+  }
+  .badge {
+    font-weight: normal;
+  }
+}
+
+.mar-top {
+  margin-top: 15px;
+}
+.bigger {
+  font-size: 130%;
+}
+.caps {
+  text-transform: capitalize;
+}
+
+.all-caps {
+  text-transform: uppercase;
+}
+
+.stats-central-logo {
+  float: left;
+  margin-left: 5px;
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+.jumbotron h2 {
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: @green;
+}
+
+
+.alert {
+  position: absolute;
+}
+
+ // remove 1px offset glyphicons have
+form .glyphicon {
+    top: 0;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.form-signin {
+position: relative;
+max-width: 30%;
+padding: 19px 29px 29px;
+margin: 0 auto 20px;
+margin-top: 20px;
+
+}
+
+/*This is one way to get ng-cloak to work without having to put angular.js loaded at the top of the page.
+Without this angular would not be loaded yet, so it won't recognize ng-cloak.  This is the css that angular
+will ultimately load to make the ng-cloak display none until $compile thing runs. */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.signinError {
+ right: 67px;
+ top: 53px;
+ z-index: 100;
+}
+
+/* This moves the signin form over a bit. */
+.navbar-nav.navbar-right:last-child {
+margin-right: 2px;
+}
+
+.gravatarSm {
+ line-height: 3.5;
+}
+
+/* This changes the cursor to a pointer */
+.pointer {
+    cursor: pointer;
+}
+
+
+

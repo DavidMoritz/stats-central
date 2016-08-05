@@ -1,0 +1,8 @@
+div(ui-view="")
+	p Here is the info!
+	p Name: {{player.name}}
+	p Gender: {{player.gender}}
+	p Graduating Year: {{player.year}}
+	.row
+		a.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(ui-sref="player.checkout") checkout
+		a.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(ui-sref="studnet.checkin") checkin

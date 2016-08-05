@@ -1,0 +1,18 @@
+form#add-items-form.row(ng-submit="createNewItem()" name="add-items-form")
+	h2 What items does {{parentScope.currentSchool.name}} use for {{parentScope.currentSport.name}}?
+	.input-group
+		span#basic-addon1.input-group-addon
+			i.fa.fa-search.bigger.text-muted
+		input#new-item-input.form-control(type="text" ng-model="item.input" typeahead="item as item.name for item in item_types | filter:$viewValue | limitTo:8" typeahead-editable=true typeahead-on-select="selectitem($item, $model, $label)" data-item-id='{{item.id}}' placeholder="Name of item" aria-describedby="basic-addon1")
+	h3 Current items for {{parentScope.currentSport.name}}
+	a.ui-btn.ui-shadow.stats-central-btn.ui-icon-minus.ui-btn-icon-right(ng-repeat="item in school_sport_item_types" ng-click="removeitem(item.id)") {{storedNames[item.id] || item.item_type.name}}
+	br
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="button" ui-sref="check")
+		span(ng-show="!newForm.loading") Done
+		span.overlord-loading-spinner.fa.fa-spinner(ng-show="newForm.loading")
+		span(ng-show="newForm.loading") Adding items...
+	input(type="hidden" name="_csrf" value="#{_csrf}")
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="submit" hidden)
+		span(ng-show="!signupForm.loading") Add item
+		span.overlord-loading-spinner.fa.fa-spinner(ng-show="signupForm.loading")
+		span(ng-show="signupForm.loading") Adding the new item...

@@ -1,0 +1,10 @@
+form#login-form(ng-submit="submitLoginForm()")
+	.form-group
+		input.form-control(ng-model="loginForm.email" type="text" placeholder="Email" name="email")
+	.form-group
+		input.form-control(ng-model="loginForm.password" type="password" placeholder="Password" name="password")
+	button.ui-btn.ui-shadow.stats-central-btn.ui-icon-check.ui-btn-icon-right(type="submit")
+		span(ng-show="!loginForm.loading") Sign in
+		i.fa.fa-spinner(ng-show="loginForm.loading")
+		span(ng-show="loginForm.loading") Signing in...
+	input(type="hidden" name="_csrf" value="#{_csrf}")
